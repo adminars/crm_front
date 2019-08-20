@@ -58,13 +58,24 @@ $(document).ready(function(){
             }
           //成功
         }).fail(function( jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR);
-            console.log(textStatus);
-            console.log(errorThrown);
+            console.log(jqXHR.responseJSON);
+            if(jqXHR.responseJSON.error) {
+              $("#extention_err").html(jqXHR.responseJSON.error[0]);
+            } else if(jqXHR.responseJSON.errors.email) {
+              $("#username_err").html(jqXHR.responseJSON.errors.email[0]);
+            } else if(jqXHR.responseJSON.errors.password) {
+              $("#password_err").html(jqXHR.responseJSON.errors.password[0]);
+            }
+            
+            //console.log(jqXHR.responseJSON.errors.extention[0]);
+            //console.log(jqXHR.responseJSON.errors.email[0]);
+            //console.log(jqXHR.responseJSON.errors.email[0]);
+            //console.log(textStatus);
+            //console.log(errorThrown);
           //失敗
         }).always(function( jqXHR, textStatus) {
           //通信完了
-            console.log(textStatus);
+            //console.log(textStatus);
         });    
     });
 });
